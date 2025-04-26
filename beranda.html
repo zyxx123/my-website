@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beranda Sayang</title>
+  <link rel="stylesheet" href="beranda.css">
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <h1>Hai, <span id="namaUser"></span>!</h1>
+      <p id="teksUcapan"></p>
+    </div>
+    <div class="button-group">
+        <button id="logoutButton" class="btn-logout"> Kembali</button>
+        <button id="nextButton" class="btn-logout"> Next</button>
+    </div>
+  </div>
+
+  <!-- Hati Jatuh -->
+  <div id="hearts"></div>
+
+  <!-- Confetti -->
+  <canvas id="confetti"></canvas>
+
+  <audio id="tingSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_64b4a3825c.mp3" preload="auto"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <script>
+
+    // Tampilkan Nama
+    const namaUser = localStorage.getItem('username');
+    if (namaUser) {
+      document.getElementById('namaUser').textContent = namaUser;
+    } else {
+      window.location.href = "form.html"; // Redirect ke halaman login jika tidak ada username
+    }
+
+    // Logout
+    document.getElementById('logoutButton').addEventListener('click', () => {
+      localStorage.removeItem('username');
+      window.location.href = "form.html"; // Redirect ke halaman login setelah logout
+    });
+
+    // Efek Hati
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.getElementById('hearts').appendChild(heart);
+
+      document.getElementById('tingSound').play().catch(() => {});
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 500); // Membuat efek hati jatuh setiap 500ms
+
+    // Efek Ketik
+    const teks = "Semangat yaa, semesta selalu dukung kita berdua!";
+    const teksUcapan = document.getElementById('teksUcapan');
+    let index = 0;
+
+    function ketikTeks() {
+      if (index < teks.length) {
+        teksUcapan.innerHTML += teks.charAt(index);
+        index++;
+        setTimeout(ketikTeks, 90);
+      }
+    }
+
+    ketikTeks(); // Mulai mengetik teks
+
+    // Confetti
+    confetti({
+      particleCount: 200,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+
+    // Tombol Next untuk menuju halaman amplop
+    document.getElementById('nextButton').addEventListener('click', () => {
+      window.location.href = 'amplop.html'; // Pergi ke halaman amplop
+    });
+  </script>
+</body>
+</html>

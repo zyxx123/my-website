@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    width: 320px;
+  }
+  
+  .form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    outline: none;
+  }
+  
+  .password-group {
+    position: relative;
+  }
+  
+  .toggle-eye {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .btn:hover {
+    background: #5a67d8;
+  }
+  
+  #loading {
+    margin-top: 10px;
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+    z-index: 1000;
+  }
+  
+  .toast.show {
+    opacity: 1;
+    bottom: 50px;
+  }
+/* Tetap yang lama tetap ada, tambahkan ini di bawahnya yaa */
+
+@media (prefers-color-scheme: dark) {
+    body {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+    }
+  
+    .container {
+      background: #222;
+      color: #eee;
+    }
+  
+    .input-group input {
+      background: #333;
+      color: #eee;
+      border: 1px solid #555;
+    }
+  
+    .btn {
+      background: #5c7cfa;
+    }
+  
+    .btn:hover {
+      background: #4c6ef5;
+    }
+  
+    #loading {
+      color: #ccc;
+    }
+  }
+  
+  /* Ripple Animation */
+  .ripple-effect {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: ripple 0.6s linear;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+    

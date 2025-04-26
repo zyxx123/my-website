@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #ffe9ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  text-align: center;
+}
+
+.envelope {
+  width: 200px;
+  height: 120px;
+  position: relative;
+  margin: 50px auto;
+  margin-bottom: 30px;
+}
+
+.top-flap {
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 60px solid #ff5c8d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top center;
+  transition: transform 0.6s ease;
+  z-index: 4;
+}
+
+.bottom-flap {
+  width: 200px;
+  height: 100px;
+  background: linear-gradient(135deg, #ff7eb9 50%, #ff5c8d 50%);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.left-flap, .right-flap {
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  position: absolute;
+  top: 60px;
+  z-index: 2;
+}
+
+.left-flap {
+  border-right: 100px solid #ff7eb9;
+  left: 0;
+}
+
+.right-flap {
+  border-left: 100px solid #ff7eb9;
+  right: 0;
+}
+
+.letter {
+  width: 160px;
+  height: 90px;
+  background: #fff;
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: top 0.6s ease;
+  z-index: 3;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.letter p {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Pacifico', cursive;
+  color: #555;
+}
+
+.button-group {
+  margin-top: 20px;
+}
+
+.btn {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+  background-color: #ff85c1;
+}

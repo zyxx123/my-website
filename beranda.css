@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffd6e0, #ffe9ec, #fff0f5);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 50px 30px;
+  border-radius: 25px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+  position: relative;
+  position: relative;
+  z-index: 0; /* Tambahan supaya heart kelihatan */
+}
+
+.content h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5em;
+  color: #ff69b4;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 1.2em;
+  color: #555;
+  min-height: 60px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Jarak antar tombol */
+    margin-top: 30px;
+  }
+  
+  /* Pastikan tombol ini sudah ada */
+  .btn-logout {
+    background-color: #ff69b4; /* Pink lucu */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
+  
+  .btn-logout:hover {
+    background-color: #ff85c1;
+    transform: translateY(-3px);
+  }
+  
+
+
+
+#hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.heart {
+  width: 25px;
+  height: 25px;
+  background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center center/contain;
+  position: absolute;
+  animation: fall 5s linear forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Jarak antar tombol */
+    margin-top: 30px; /* Jarak dari konten atas */
+  }
+
+  
+
+  

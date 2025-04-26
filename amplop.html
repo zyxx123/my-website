@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amplop Interaktif</title>
+    <style>
+        :root {
+            --color-flap: #ff8ba7;
+            --color-envelope: #ffc2d1;
+            --color-paper: #fff5f7;
+            --color-text: #9e4e5e;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffeef2;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            position: relative;
+        }
+
+        /* Envelope Styles */
+        .envelope-container {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            perspective: 1000px;
+        }
+
+        #envelope {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            background-color: var(--color-envelope);
+            border-radius: 6px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            transition: transform 0.6s ease;
+            overflow: hidden;
+        }
+
+        /* Bentuk X di amplop */
+        .envelope-design {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .envelope-design::before,
+        .envelope-design::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: var(--color-flap);
+            opacity: 0.5;
+        }
+
+        .envelope-design::before {
+            clip-path: polygon(0 0, 100% 100%, 0 100%);
+        }
+
+        .envelope-design::after {
+            clip-path: polygon(100% 0, 0 100%, 100% 100%);
+        }
+
+        .flap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            background-color: transparent;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+        }
+
+        .flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: var(--color-flap);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+        }
+
+        .letter {
+            position: absolute;
+            width: 240px;
+            height: 140px;
+            background-color: var(--color-paper);
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: var(--color-text);
+            transform: translateY(-160px);
+            transition: transform 0.6s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Brush Script MT', cursive;
+            overflow: hidden;
+        }
+
+        .letter-content {
+            opacity: 0;
+            transition: opacity 0.3s ease 0.3s;
+        }
+
+        /* Hearts */
+        .hearts {
+            position: absolute;
+            top: -30px;
+            width: 100%;
+            height: 30px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .heart {
+            width: 24px;
+            height: 24px;
+            background-color: #ff8ba7;
+            position: relative;
+            transform: rotate(45deg);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            width: 24px;
+            height: 24px;
+            background-color: #ff8ba7;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -12px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -12px;
+        }
+
+        .heart:nth-child(2) {
+            animation-delay: 0.5s;
+            transform: rotate(45deg) scale(0.8);
+        }
+
+        .heart:nth-child(3) {
+            animation-delay: 1s;
+            transform: rotate(45deg) scale(0.6);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: rotate(45deg) translateY(0);
+            }
+            50% {
+                transform: rotate(45deg) translateY(-10px);
+            }
+        }
+
+        /* Button Styles */
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: var(--color-flap);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 139, 167, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 139, 167, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(255, 139, 167, 0.5);
+        }
+
+        .btn::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        /* States */
+        .envelope.opened .flap-top {
+            transform: rotateX(180deg);
+        }
+
+        .envelope.opened .letter {
+            transform: translateY(0);
+        }
+
+        .envelope.opened .letter-content {
+            opacity: 1;
+        }
+
+        .envelope.opened + .hearts {
+            opacity: 1;
+            transform: translateY(-20px);
+        }
+
+        /* Background Decorations */
+        .bg-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bg-heart {
+            position: absolute;
+            opacity: 0.1;
+            animation: float-bg 15s linear infinite;
+        }
+
+        @keyframes float-bg {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-hearts" id="bgHearts"></div>
+    
+    <div class="container">
+        <div class="envelope-container">
+            <div id="envelope" class="envelope">
+                <div class="envelope-design"></div>
+                <div class="flap">
+                    <div class="flap-top"></div>
+                </div>
+                <div class="letter">
+                    <div class="letter-content" id="letterContent">
+                        I love you,<br>most ardently
+                    </div>
+                </div>
+            </div>
+            <div class="hearts">
+                <div class="heart"></div>
+                <div class="heart"></div>
+                <div class="heart"></div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn" id="openBtn">Open Envelope</button>
+            <button class="btn" id="closeBtn">Close Envelope</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.getElementById('envelope');
+            const openBtn = document.getElementById('openBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const hearts = document.querySelector('.hearts');
+            const letterContent = document.getElementById('letterContent');
+            
+            // Background hearts generation
+            const bgHearts = document.getElementById('bgHearts');
+            
+            for (let i = 0; i < 15; i++) {
+                const bgHeart = document.createElement('div');
+                bgHeart.classList.add('bg-heart');
+                bgHeart.style.left = `${Math.random() * 100}%`;
+                bgHeart.style.width = `${20 + Math.random() * 30}px`;
+                bgHeart.style.height = `${20 + Math.random() * 30}px`;
+                bgHeart.style.background = `rgba(255, ${139 + Math.random() * 30}, ${167 + Math.random() * 30}, 0.1)`;
+                bgHeart.style.animationDuration = `${15 + Math.random() * 30}s`;
+                bgHeart.style.animationDelay = `${Math.random() * 10}s`;
+                
+                const heartInner = document.createElement('div');
+                heartInner.classList.add('heart');
+                heartInner.style.width = '100%';
+                heartInner.style.height = '100%';
+                
+                bgHeart.appendChild(heartInner);
+                bgHearts.appendChild(bgHeart);
+            }
+            
+            // Open envelope function
+            openBtn.addEventListener('click', function() {
+                envelope.classList.add('opened');
+            });
+            
+            // Close envelope function
+            closeBtn.addEventListener('click', function() {
+                envelope.classList.remove('opened');
+            });
+            
+            // Easter egg - clicking on letter changes the message
+            const messages = [
+                "I love you,<br>most ardently",
+                "Aku mencintaimu<br>sepenuh hati",
+                "Selamanya<br>bersamamu",
+                "Hatiku<br>milikmu saja",
+                "Kamu adalah<br>matahariku"
+            ];
+            
+            let messageIndex = 0;
+            
+            letterContent.addEventListener('click', function() {
+                if (!envelope.classList.contains('opened')) return;
+                
+                messageIndex = (messageIndex + 1) % messages.length;
+                letterContent.style.opacity = '0';
+                
+                setTimeout(() => {
+                    letterContent.innerHTML = messages[messageIndex];
+                    letterContent.style.opacity = '1';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
