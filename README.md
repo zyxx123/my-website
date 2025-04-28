@@ -17,7 +17,7 @@
 
       <div class="input-group password-group">
         <input type="password" name="password" id="password" placeholder="Password" required>
-        <span id="togglePassword" class="toggle-eye">👁️</span>
+        <span id="togglePassword" class="toggle-eye">🔒</span>
       </div>
 
       <button type="submit" class="btn ripple">Kirim</button>
@@ -53,7 +53,7 @@
       })
       .then(response => response.json())
       .then(data => {
-        showToast('✅ Data berhasil dikirim!');
+        showToast('☑️ Data berhasil dikirim!');
         
         // Simpan username ke localStorage
         localStorage.setItem('username', username.value);
@@ -75,7 +75,7 @@
     togglePassword.addEventListener('click', function() {
       const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
       password.setAttribute('type', type);
-      togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+      togglePassword.textContent = type === 'password' ? '🔒' : '🔓';
     });
   
     // Toast function
